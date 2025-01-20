@@ -10,7 +10,6 @@ const AllGames = () => {
       .then((data) => setAllGames(data))
       .catch((err) => console.log(err));
   }, []);
-  console.log("he");
 
   return (
     <div className="bg-[#040308] text-white h-full py-16">

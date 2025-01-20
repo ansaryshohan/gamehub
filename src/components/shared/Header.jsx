@@ -1,9 +1,21 @@
 import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/gamehub_logo.png";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Header = () => {
+  const { user,setUser, logOut } = useAuthContext();
+  // console.log(user.uid);
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        setUser(null);
+        navigate("/")
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className=" bg-base-100">
@@ -89,12 +101,22 @@ const Header = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-32 p-2 shadow"
             >
-              <li>
-                <Link to={"/login"}>Login</Link>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
+              {user?.uid ? (
+                <>
+                  <li>
+                    <Link to={"/profile"}>Profile</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogOut}>
+                      <Link>Logout</Link>
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link to={"/login"}>Login</Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

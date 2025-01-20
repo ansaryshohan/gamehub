@@ -6,7 +6,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import { GoogleAuthProvider } from "firebase/auth";
 import { useEffect, useState } from "react";
 import auth from "../firebase/firebase.init";
 import AuthContext from "./AuthContext";
