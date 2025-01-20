@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -21,17 +19,17 @@ const InputField = ({
           <span className="label-text text-white">{label}</span>
         </label>
       )}
-      {id === "password" || id==="confirm-password" ? (
+      {id === "password" || id === "confirm-password" ? (
         <div className="relative w-full">
           {children}{" "}
           <div className="absolute top-4 right-6 z-20">
             {passwordToggle ? (
               <div onClick={() => setPasswordToggle((prev) => !prev)}>
-                <FaEye size={15} color="#000"/>
+                <FaEye size={15} color="#000" />
               </div>
             ) : (
               <div onClick={() => setPasswordToggle((prev) => !prev)}>
-                <FaEyeSlash size={15} color="#000"/>
+                <FaEyeSlash size={15} color="#000" />
               </div>
             )}
           </div>
