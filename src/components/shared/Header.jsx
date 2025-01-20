@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/gamehub_logo.png";
 
 const Header = () => {
+
   return (
     <div className=" bg-base-100">
       <div className="w-full md:w-11/12 mx-auto navbar">
@@ -74,7 +75,7 @@ const Header = () => {
           >
             <FaHeart size={25} />
           </div>
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end z-50">
             <div
               tabIndex={0}
               role="button"
@@ -89,7 +90,7 @@ const Header = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-32 p-2 shadow"
             >
               <li>
-                <a>Profile</a>
+                <Link to={"/login"}>Login</Link>
               </li>
               <li>
                 <a>Logout</a>

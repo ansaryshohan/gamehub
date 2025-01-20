@@ -1,0 +1,112 @@
+[
+  {
+    "gameName": "PUBG Mobile",
+    "image": "https://i.ibb.co.com/M7b510s/trending-games-1.jpg",
+    "rating": 9.0,
+    "comment": "Great graphics and thrilling gameplay! Perfect for battle royale lovers.",
+    "user": {
+      "id": 1,
+      "name": "GamerDude123",
+      "userImg": "https://example.com/images/users/user1.jpg"
+    }
+  },
+  {
+    "gameName": "Call of Duty Mobile",
+    "image": "https://i.ibb.co.com/2kQWtJq/trending-games-2.jpg",
+    "rating": 9.2,
+    "comment": "Impressive FPS experience on mobile with various modes and maps.",
+    "user": {
+      "id": 2,
+      "name": "ShooterFan",
+      "userImg": "https://example.com/images/users/user2.jpg"
+    }
+  },
+  {
+    "gameName": "Genshin Impact",
+    "image": "https://i.ibb.co.com/r24tKNJ/trending-games-3.jpg",
+    "rating": 9.5,
+    "comment": "Stunning open-world RPG with beautiful visuals and engaging storylines.",
+    "user": {
+      "id": 3,
+      "name": "FantasyLover",
+      "userImg": "https://example.com/images/users/user3.jpg"
+    }
+  },
+  {
+    "gameName": "Clash of Clans",
+    "image": "https://i.ibb.co.com/tzBW1tY/trending-games-4.jpg",
+    "rating": 8.8,
+    "comment": "A classic strategy game that’s fun to play and keeps getting better.",
+    "user": {
+      "id": 4,
+      "name": "StrategistPro",
+      "userImg": "https://example.com/images/users/user4.jpg"
+    }
+  },
+  {
+    "gameName": "Subway Surfers",
+    "image": "https://i.ibb.co.com/PTk1fF5/trending-games-5.jpg",
+    "rating": 8.5,
+    "comment": "Addictive endless runner with colorful graphics and smooth controls.",
+    "user": {
+      "id": 5,
+      "name": "RunnerMaster",
+      "userImg": "https://example.com/images/users/user5.jpg"
+    }
+  },
+  {
+    "gameName": "Candy Crush Saga",
+    "image": "https://i.ibb.co.com/G5rV5kG/trending-games-6.jpg",
+    "rating": 8.0,
+    "comment": "Simple and fun puzzle game with lots of levels to keep you entertained.",
+    "user": {
+      "id": 6,
+      "name": "PuzzleLover",
+      "userImg": "https://example.com/images/users/user6.jpg"
+    }
+  },
+  {
+    "gameName": "Among Us",
+    "image": "https://i.ibb.co.com/j8Tpby7/trending-games-7.jpg",
+    "rating": 8.7,
+    "comment": "Hilarious party game that’s perfect with friends. Betrayal has never been so fun!",
+    "user": {
+      "id": 7,
+      "name": "SussyBaka",
+      "userImg": "https://example.com/images/users/user7.jpg"
+    }
+  },
+  {
+    "gameName": "Free Fire",
+    "image": "https://i.ibb.co.com/5hKR70z/trending-games-8.jpg",
+    "rating": 8.9,
+    "comment": "A fast-paced battle royale that’s perfect for short gaming sessions.",
+    "user": {
+      "id": 8,
+      "name": "QuickShooter",
+      "userImg": "https://example.com/images/users/user8.jpg"
+    }
+  },
+  {
+    "gameName": "Pokemon GO",
+    "image": "https://i.ibb.co.com/r24tKNJ/trending-games-3.jpg",
+    "rating": 9.3,
+    "comment": "Fun augmented reality game that gets you moving and catching Pokémon.",
+    "user": {
+      "id": 9,
+      "name": "PokeTrainer",
+      "userImg": "https://example.com/images/users/user9.jpg"
+    }
+  },
+  {
+    "gameName": "Mobile Legends: Bang Bang",
+    "image": "https://i.ibb.co.com/2kQWtJq/trending-games-2.jpg",
+    "rating": 9.0,
+    "comment": "Fantastic MOBA experience with a wide variety of heroes to play.",
+    "user": {
+      "id": 10,
+      "name": "MOBAKing",
+      "userImg": "https://example.com/images/users/user10.jpg"
+    }
+  }
+]
