@@ -30,16 +30,17 @@ const router = createBrowserRouter([
         path:"/my-reviews",
         element: <MyReviewsPage />,
       },
+      {
+        path:"/login",
+        element:<LoginPage/>
+      },
+      {
+        path:"/register",
+        element:<RegisterPage/>
+      },
     ],
   },
-  {
-    path:"/login",
-    element:<LoginPage/>
-  },
-  {
-    path:"/register",
-    element:<RegisterPage/>
-  },
+  
 ]);
 
 export default router;
