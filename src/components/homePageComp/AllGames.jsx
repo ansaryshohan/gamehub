@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SectionHeadline from "../shared/SectionHeadline";
 import SingleGameCard from "./SingleGameCard";
 
 const AllGames = () => {
@@ -12,8 +11,7 @@ const AllGames = () => {
   }, []);
 
   return (
-    <div className="bg-[#040308] text-white h-full py-16">
-      <SectionHeadline titleText={"Top Games"} />
+    <>
       <div className="max-w-6xl mx-auto p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:hidden lg:grid lg:grid-cols-4 gap-6">
           {allGames?.map((game, index) => (
@@ -27,14 +25,14 @@ const AllGames = () => {
         </div>
       </div>
       <div className="flex justify-center items-center pt-8">
-      <button
+        <button
           type="button"
           className="px-8 py-3 font-semibold rounded-full bg-gray-100 text-gray-800"
         >
-         View All
+          View All
         </button>
       </div>
-    </div>
+    </>
   );
 };
 

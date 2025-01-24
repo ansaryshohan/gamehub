@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import InputField from "./InputField";
@@ -16,6 +16,9 @@ const LoginForm = () => {
     loginError: "",
   });
   const navigate = useNavigate();
+  let location = useLocation();
+
+  let from = location.state?.from || "/";
 
   const handleUserInputOnChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
@@ -44,7 +47,7 @@ const LoginForm = () => {
       .then((result) => {
         if (result) {
           toast.success("login successful");
-          navigate("/");
+          navigate(from, { replace: true });
         }
       })
       .catch((err) => toast.error(err.code));
