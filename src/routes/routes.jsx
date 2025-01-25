@@ -8,6 +8,7 @@ import LoginPage from "../pages/LoginPage";
 import MyReviewsPage from "../pages/MyReviewsPage";
 import RegisterPage from "../pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
+import GameDetailPage from "../pages/GameDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/reviews",
         element: <AllReviewPage />,
+      },
+      {
+        path: "/reviews/:id",
+        element: <GameDetailPage />,
       },
       {
         path: "/add-review",
