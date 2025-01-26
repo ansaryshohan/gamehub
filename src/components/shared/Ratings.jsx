@@ -2,7 +2,7 @@ import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 const Ratings = ({ starCount }) => {
   const numberAfterPoint = Number((Number(starCount)/2)?.toFixed(2).split(".")[1]);
-  const ceilNumber = Math.ceil(Number(starCount?.toFixed(2))/2);
+  const ceilNumber = Math.ceil(Number(Number(starCount)?.toFixed(2))/2);
 
   if (starCount) {
     const arrayOfNumber = Array.from(Array(5), (d, i) => i + 1); //[1,2,3,4,5]

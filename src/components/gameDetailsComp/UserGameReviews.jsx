@@ -16,9 +16,9 @@ const UserGameReviews = ({ userReview }) => {
         )}
       </div>
       <div className="text-white flex-1">
-        <h3>{userReview?.name}</h3>
-        <p>{userReview?.userReview}</p>
-        <p> <Ratings starCount={userReview?.userRating}/></p>
+        <h3 className="font-bold text-2xl">{userReview?.name}</h3>
+        <p className="mb-2">{userReview?.userReview}</p>
+        <div className="flex items-center justify-start"> <Ratings starCount={userReview?.userRating}/></div>
       </div>
     </div>
   );
