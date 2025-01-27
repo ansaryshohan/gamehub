@@ -13,11 +13,11 @@ const GameDetailPage = () => {
   const { user } = useAuthContext();
   const { id } = useParams();
   const [gameData, setGameData] = useState({});
-  const [reviewInput, setReviewInput] = useState({
+  const [commentInput, setCommentInput] = useState({
     ratingInput: 0,
     reviewDetails: "",
   });
-  const [reviewInputError, setReviewInputError] = useState({
+  const [commentInputError, setCommentInputError] = useState({
     ratingInputError: "",
     reviewDetailsError: "",
   });
@@ -27,40 +27,38 @@ const GameDetailPage = () => {
       .then((res) => res.json())
       .then((data) => setGameData(data[0]))
       .catch((err) => console.log(err));
-      
   }, [id]);
-  
 
   const handleFormDataOnChange = (e) => {
-    setReviewInputError({ ...reviewInputError, reviewInputError: "" });
+    setCommentInputError({ ...commentInputError, commentInputError: "" });
     if (e.target.name === "ratingInput") {
       const value = Number(e.target.value);
 
       if (value >= 0 && value <= 10) {
-        setReviewInputError({
-          ...reviewInputError,
+        setCommentInputError({
+          ...commentInputError,
           ratingInputError: "",
         });
-        return setReviewInput({
-          ...reviewInput,
+        return setCommentInput({
+          ...commentInput,
           [e.target.name]: e.target.value,
         });
       }
-      return setReviewInputError({
-        ...reviewInputError,
+      return setCommentInputError({
+        ...commentInputError,
         ratingInputError: "give a rating between 0-10",
       });
     }
-    setReviewInput({ ...reviewInput, [e.target.name]: e.target.value });
+    setCommentInput({ ...commentInput, [e.target.name]: e.target.value });
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const reviewData = {
+    const commentInfo = {
       gameId: id,
-      reviewData: {
-        userRating: reviewInput.ratingInput,
-        userReview: reviewInput.reviewDetails,
+      commentData: {
+        userRating: commentInput.ratingInput,
+        userReview: commentInput.reviewDetails,
         name: user.displayName,
         userImg: user.photoURL,
         id: crypto.randomUUID(),
@@ -69,10 +67,10 @@ const GameDetailPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/add-review", {
+      const response = await fetch("http://localhost:3000/add-comment", {
         method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(reviewData),
+        body: JSON.stringify(commentInfo),
       });
       const { data } = await response.json();
       // console.log(data);
@@ -100,13 +98,13 @@ const GameDetailPage = () => {
         <SectionHeadline titleText={`${gameData?.gameName}`} />
       </div>
       <div className="w-full bg-gray-950 py-16 text-white">
-        <div className="relative w-10/12 mx-auto flex flex-col md:flex-row justify-center items-stretch gap-6">
+        <div className="relative w-10/12 mx-auto flex flex-col md:flex-row justify-start items-stretch gap-10">
           <div>
             <img src={gameData?.image} alt="" className="sticky top-10" />
           </div>
-          <div className="md:px-5 pb-5 ">
+          <div className="md:px-5 pb-5 flex-1">
             <div className=" flex justify-between items-center">
-              <h3 className="text-xl md:text-3xl font-bold mb-5">
+              <h3 className="text-xl md:text-3xl font-bold mb-5 capitalize">
                 {gameData?.gameName}
               </h3>
               <p className="w-12 h-12 rounded-full border grid place-content-center">
@@ -114,7 +112,7 @@ const GameDetailPage = () => {
                 <FaHeart color="red" size={20} />{" "}
               </p>
             </div>
-            <p className="text-lg">{gameData?.comment}</p>
+            <p className="text-lg">{gameData?.review}</p>
             <div className="text-lg mt-3 flex gap-3 items-center font-bole">
               Rating: <Ratings starCount={gameData?.rating} />
             </div>
@@ -122,22 +120,27 @@ const GameDetailPage = () => {
               Genre: {gameData?.genre}
             </div>
             <div className="border rounded-2xl p-5">
-              <p className="text-lg font-bold">Give Your Review:</p>
+              <p className="text-lg font-bold">Add your comment:</p>
               <GameReviewForm
                 handleFormDataOnChange={handleFormDataOnChange}
                 handleFormSubmit={handleFormSubmit}
-                reviewInputError={reviewInputError}
+                commentInputError={commentInputError}
               />
             </div>
           </div>
         </div>
         <div className=" flex flex-col">
-          {gameData?.reviews?.length > 0 ? (
-            gameData?.reviews?.map((userReview) => (
-              <UserGameReviews key={userReview?.id} userReview={userReview} />
+          {gameData?.comments?.length > 0 ? (
+            gameData?.comments?.map((userComment) => (
+              <UserGameReviews
+                key={userComment?.id}
+                userComment={userComment}
+              />
             ))
           ) : (
-            <div className="w-10/12 mx-auto pt-10 mt-10 border-t flex justify-center gap-16 items-center text-2xl text-red-600 ">No reviews available</div>
+            <div className="w-10/12 mx-auto pt-10 mt-10 border-t flex justify-center gap-16 items-center text-2xl text-red-600 ">
+              No Comments available
+            </div>
           )}
         </div>
       </div>

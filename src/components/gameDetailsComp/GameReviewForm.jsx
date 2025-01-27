@@ -1,9 +1,9 @@
 import InputField from "../login&register/InputField";
 
-const GameReviewForm = ({handleFormSubmit,handleFormDataOnChange,reviewInputError}) => {
+const GameReviewForm = ({handleFormSubmit,handleFormDataOnChange,commentInputError}) => {
   return (
     <form onSubmit={handleFormSubmit}>
-      <InputField label={"Enter a Rating (0-10):"} error={reviewInputError.ratingInputError}>
+      <InputField label={"Enter a Rating (0-10):"} error={commentInputError.ratingInputError}>
         <input
           onChange={handleFormDataOnChange}
           type="number"
@@ -27,12 +27,12 @@ const GameReviewForm = ({handleFormSubmit,handleFormDataOnChange,reviewInputErro
           className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 focus:border-violet-600 resize-none"
         />
       </InputField>
-      <div className="w-full grid place-items-center mt-5">
+      <div className="w-full flex items-center justify-center mt-5">
         <button
           className="block w-1/3 p-3 text-center text-gray-50 bg-violet-600 rounded-2xl"
           type="submit"
         >
-          Add Review
+          Add Comment
         </button>
       </div>
     </form>

@@ -11,14 +11,6 @@ const AllGames = ({allGames}) => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center items-center pt-8">
-        <button
-          type="button"
-          className="px-8 py-3 font-semibold rounded-full bg-gray-100 text-gray-800"
-        >
-          View All
-        </button>
-      </div>
     </>
   );
 };

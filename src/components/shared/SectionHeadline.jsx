@@ -4,7 +4,7 @@ const SectionHeadline = ({titleText}) => {
   return (
     <div className="text-center py-8">
     {/* Section Title */}
-    <h2 className="text-3xl font-bold text-white mb-4">{titleText}</h2>
+    <h2 className="text-3xl font-bold text-white mb-4 uppercase">{titleText}</h2>
     {/* Line with Icon */}
     <div className="relative flex items-center justify-center py-4">
       <div className="w-3/12 sm:w-32 h-[2px] bg-gray-300"></div>
