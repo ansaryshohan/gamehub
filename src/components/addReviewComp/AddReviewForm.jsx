@@ -124,14 +124,17 @@ const AddReviewForm = () => {
         reviewInput.publishYear &&
         reviewInput.genre
       ) {
-        const reviewResponse = await fetch("http://localhost:3000/add-review", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(reviewDataObj),
-        });
+        const reviewResponse = await fetch(
+          "https://game-review-backend.vercel.app/add-review",
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(reviewDataObj),
+          }
+        );
         const data = await reviewResponse.json();
         if (data.acknowledged) {
-         setReviewInput({
+          setReviewInput({
             gameName: "",
             image: "",
             review: "",
@@ -173,7 +176,11 @@ const AddReviewForm = () => {
           </InputField>
         </div>
         <div className="space-y-1 text-sm">
-          <InputField label={"Game Image"} error={reviewInputError.imageError} customClassName="text-white">
+          <InputField
+            label={"Game Image"}
+            error={reviewInputError.imageError}
+            customClassName="text-white"
+          >
             <input
               type="text"
               name="image"

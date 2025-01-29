@@ -1,33 +1,43 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import bgImage from "../../assets/benefits_background.jpg";
 import SectionHeadline from "../shared/SectionHeadline";
 import AllGames from "./AllGames";
-import { Link } from "react-router-dom";
 
 const TopGamesSection = () => {
   const [topGames, setTopGames] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/top-games")
+    fetch("https://game-review-backend.vercel.app/top-games")
       .then((res) => res.json())
       .then((data) => setTopGames(data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div className="bg-[#040308] text-white h-full py-16">
+    <div
+      className=" text-white h-full py-16"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <SectionHeadline titleText={"Top Games"} />
-      <AllGames allGames={topGames}/>
+      <AllGames allGames={topGames} />
       <div className="flex justify-center items-center pt-8">
         <Link to={"/reviews"}>
-        <button
-          type="button"
-          className="px-8 py-3 font-semibold rounded-full bg-gray-100 text-gray-800"
-        >
-          View All
-        </button>
+          <button
+            type="button"
+            className="px-8 py-3 font-semibold rounded-full bg-gray-100 text-gray-800"
+          >
+            View All
+          </button>
         </Link>
       </div>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default TopGamesSection
+export default TopGamesSection;

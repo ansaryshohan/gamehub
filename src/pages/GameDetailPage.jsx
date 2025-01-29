@@ -25,29 +25,27 @@ const GameDetailPage = () => {
 
   // review data finding and setting
   useEffect(() => {
-    fetch(`http://localhost:3000/review/${id}`)
+    fetch(`https://game-review-backend.vercel.app/review/${id}`)
       .then((res) => res.json())
       .then((data) => setGameData(data[0]))
       .catch((err) => console.log(err));
   }, [id]);
 
-
-
   // wishlist data finding and setting
   useEffect(() => {
     if (!user?.email || !id) return;
 
-  fetch(`http://localhost:3000/wishlist/${user?.email}`)
-    .then((res) => {
-      // console.log("Response status:", res.status);
-      return res.json();
-    })
+    fetch(`https://game-review-backend.vercel.app/wishlist/${user?.email}`)
+      .then((res) => {
+        // console.log("Response status:", res.status);
+        return res.json();
+      })
       .then((data) => {
         const wishlistArray = data?.data?.wishlist || [];
         const findGameInWishlist = wishlistArray.includes(id);
         // console.log(data,findGameInWishlist);
         if (findGameInWishlist) {
-         return setIsGameInWishlist(true);
+          return setIsGameInWishlist(true);
         }
       })
       .catch((err) => console.log(err));
@@ -55,11 +53,14 @@ const GameDetailPage = () => {
 
   const handleWishList = async (gameId) => {
     try {
-      const response = await fetch("http://localhost:3000/wishlist", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ gameId, userEmail: user?.email }),
-      });
+      const response = await fetch(
+        "https://game-review-backend.vercel.app/wishlist",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ gameId, userEmail: user?.email }),
+        }
+      );
       const data = await response.json();
       if (data?.insertData?.acknowledged) {
         setIsGameInWishlist(true);
@@ -71,11 +72,14 @@ const GameDetailPage = () => {
   };
   const handleWishListDelete = async (gameId) => {
     try {
-      const response = await fetch("http://localhost:3000/wishlist", {
-        method: "DELETE",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ gameId, userEmail: user?.email }),
-      });
+      const response = await fetch(
+        "https://game-review-backend.vercel.app/wishlist",
+        {
+          method: "DELETE",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ gameId, userEmail: user?.email }),
+        }
+      );
       const data = await response.json();
       // console.log(data);
       if (data?.deleteData?.acknowledged) {
@@ -125,11 +129,14 @@ const GameDetailPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/add-comment", {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(commentInfo),
-      });
+      const response = await fetch(
+        "https://game-review-backend.vercel.app/add-comment",
+        {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(commentInfo),
+        }
+      );
       const { data } = await response.json();
       // console.log(data);
       if (data.updateResponse.acknowledged) {

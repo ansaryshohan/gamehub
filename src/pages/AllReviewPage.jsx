@@ -6,18 +6,18 @@ import Title from "../components/shared/Title";
 const AllReviewPage = () => {
   const [allGames, setAllGames] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/reviews")
+    fetch("https://game-review-backend.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => setAllGames(data))
       .catch((err) => console.log(err));
   }, []);
-  
+
   return (
     <div>
       <Title title={"HomePage | GameHub"} />
       <div className="w-full bg-gray-950 py-10">
         <SectionHeadline titleText={"All Games"} />
-        <AllGames allGames={allGames}/>
+        <AllGames allGames={allGames} />
       </div>
     </div>
   );

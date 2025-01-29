@@ -10,9 +10,8 @@ import LoginPage from "../pages/LoginPage";
 import MyReviewsPage from "../pages/MyReviewsPage";
 import RegisterPage from "../pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
-import { useAuthContext } from "../hooks/useAuthContext";
-
-
+import WishListPage from "../pages/WishListPage";
+import ProfilePage from "../pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +46,14 @@ const router = createBrowserRouter([
             <MyReviewsPage />
           </ModalReviewContextProvider>
         ),
+      },
+      {
+        path: "/wishlist",
+        element: <WishListPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
       {
         path: "/login",

@@ -5,14 +5,14 @@ import logo from "../../assets/gamehub_logo.png";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Header = () => {
-  const { user,setUser, logOut } = useAuthContext();
+  const { user, setUser, logOut } = useAuthContext();
   // console.log(user.uid);
   const navigate = useNavigate();
   const handleLogOut = () => {
     logOut()
       .then(() => {
         setUser(null);
-        navigate("/")
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };
@@ -85,7 +85,9 @@ const Header = () => {
             className="w-10 h-10 rounded-full flex justify-center items-center"
             title="wishList"
           >
-            <FaHeart size={25} />
+            <Link to={"/wishlist"}>
+              <FaHeart size={25} />
+            </Link>
           </div>
           <div className="dropdown dropdown-end z-50">
             <div

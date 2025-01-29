@@ -16,7 +16,7 @@ const MyReviewsPage = () => {
   const { updatingReviewId, setUpdatingReviewId } = useModalReviewContext();
 
   useEffect(() => {
-    fetch("http://localhost:3000/my-reviews", {
+    fetch("https://game-review-backend.vercel.app/my-reviews", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ userEmail: user?.email }),
@@ -41,7 +41,7 @@ const MyReviewsPage = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const deleteResponse = await fetch(
-          `http://localhost:3000/review/${reviewId}`,
+          `https://game-review-backend.vercel.app/review/${reviewId}`,
           {
             method: "DELETE",
             headers: { "content-type": "application/json" },

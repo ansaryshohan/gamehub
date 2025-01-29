@@ -14,7 +14,7 @@ const UpdateReviewForm = ({ setMyReviews }) => {
     const fetchData = async () => {
       if (updatingReviewId) {
         const response = await fetch(
-          `http://localhost:3000/review/${updatingReviewId}`
+          `https://game-review-backend.vercel.app/review/${updatingReviewId}`
         );
         const reviewData = await response.json();
         setUpdatingReviewData({
@@ -139,7 +139,7 @@ const UpdateReviewForm = ({ setMyReviews }) => {
         updatingReviewData?.genre
       ) {
         const reviewResponse = await fetch(
-          `http://localhost:3000/review/${_id}`,
+          `https://game-review-backend.vercel.app/review/${_id}`,
           {
             method: "PATCH",
             headers: { "content-type": "application/json" },
