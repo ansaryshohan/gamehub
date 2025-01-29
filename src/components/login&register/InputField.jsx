@@ -16,7 +16,7 @@ const InputField = ({
     <div className={`form-control ${customClassName ? customClassName : ""}`}>
       {label && (
         <label className="label" htmlFor={id}>
-          <span className="label-text text-white">{label}</span>
+          <span className={`label-text ${customClassName}`}>{label}</span>
         </label>
       )}
       {id === "password" || id === "confirm-password" ? (

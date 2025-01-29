@@ -1,14 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
+import ModalReviewContextProvider from "../contexts/ModalReviewContextProvider";
 import MainLayout from "../layouts/MainLayout";
 import AddReviewPage from "../pages/AddReviewPage";
 import AllReviewPage from "../pages/AllReviewPage";
 import ErrorPage from "../pages/ErrorPage";
+import GameDetailPage from "../pages/GameDetailPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import MyReviewsPage from "../pages/MyReviewsPage";
 import RegisterPage from "../pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
-import GameDetailPage from "../pages/GameDetailPage";
+import { useAuthContext } from "../hooks/useAuthContext";
+
+
 
 const router = createBrowserRouter([
   {
@@ -38,7 +42,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-reviews",
-        element: <MyReviewsPage />,
+        element: (
+          <ModalReviewContextProvider>
+            <MyReviewsPage />
+          </ModalReviewContextProvider>
+        ),
       },
       {
         path: "/login",

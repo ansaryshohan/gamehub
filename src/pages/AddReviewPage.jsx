@@ -6,7 +6,7 @@ import Title from "../components/shared/Title";
 const AddReviewPage = () => {
   return (
     <div className="">
-      <Title title={"HomePage | GameHub"} />
+      <Title title={"Add-Review | GameHub"} />
 
       <div className="relative w-full min-h-screen pb-10">
         <div className="absolute top-0 left-0 w-full h-full bg-black/60 z-[3]"></div>

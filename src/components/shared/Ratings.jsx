@@ -1,6 +1,6 @@
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
-const Ratings = ({ starCount }) => {
+const Ratings = ({ starCount,starSize }) => {
   const numberAfterPoint = Number((Number(starCount)/2)?.toFixed(2).split(".")[1]);
   const ceilNumber = Math.ceil(Number(Number(starCount)?.toFixed(2))/2);
 
@@ -9,14 +9,14 @@ const Ratings = ({ starCount }) => {
 
     const arrayOfStars = arrayOfNumber.map((numberFromArray, i) => {
       if (numberFromArray /* 4 */ <= (Number(starCount)/2 )/* 3.8 */) {
-        return <FaStar key={i} color="#00D991" size={15} />; // filled star
+        return <FaStar key={i} color="#00D991" size={starSize ?? 15} />; // filled star
       } else if (
         numberFromArray === ceilNumber /* 4 */ &&
         numberAfterPoint > 50
       ) {
-        return <FaStarHalfAlt key={i} color="#00D991" size={15} />; //half star
+        return <FaStarHalfAlt key={i} color="#00D991" size={starSize ?? 15} />; //half star
       } else {
-        return <FaRegStar key={i} color="#00D991" size={15} />; //empty star
+        return <FaRegStar key={i} color="#00D991" size={starSize ?? 15} />; //empty star
       }
     });
 

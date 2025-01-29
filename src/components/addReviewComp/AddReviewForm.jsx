@@ -131,22 +131,34 @@ const AddReviewForm = () => {
         });
         const data = await reviewResponse.json();
         if (data.acknowledged) {
+         setReviewInput({
+            gameName: "",
+            image: "",
+            review: "",
+            rating: "",
+            publishYear: new Date(),
+            genre: "action",
+            userEmail: "",
+            comments: [],
+          });
+          e.target.reset();
           toast.success("review added successfully");
         }
       } else {
         toast.error("please fill up all the input");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
   return (
     <>
-      <form className="space-y-6" onSubmit={handleAddReviewSubmit}>
+      <form className="space-y-6 " onSubmit={handleAddReviewSubmit}>
         <div className="space-y-1 text-sm">
           <InputField
             label={"Game Title"}
             error={reviewInputError.gameNameError}
+            customClassName="text-white"
           >
             <input
               type="text"
@@ -161,7 +173,7 @@ const AddReviewForm = () => {
           </InputField>
         </div>
         <div className="space-y-1 text-sm">
-          <InputField label={"Game Image"} error={reviewInputError.imageError}>
+          <InputField label={"Game Image"} error={reviewInputError.imageError} customClassName="text-white">
             <input
               type="text"
               name="image"
@@ -178,6 +190,7 @@ const AddReviewForm = () => {
           <InputField
             label={"Review details"}
             error={reviewInputError.reviewError}
+            customClassName="text-white"
           >
             <textarea
               type="text"
@@ -195,6 +208,7 @@ const AddReviewForm = () => {
           <InputField
             label={"Enter a Rating (0-10):"}
             error={reviewInputError.ratingError}
+            customClassName="text-white"
           >
             <input
               type="number"
@@ -209,7 +223,7 @@ const AddReviewForm = () => {
               required
             />
           </InputField>
-          <InputField label={"Publishing Year:"}>
+          <InputField label={"Publishing Year:"} customClassName="text-white">
             <DatePicker
               selected={reviewInput.publishYear}
               renderYearContent={renderYearContent}
@@ -226,7 +240,7 @@ const AddReviewForm = () => {
             />
           </InputField>
 
-          <InputField label={"Genre "}>
+          <InputField label={"Genre "} customClassName="text-white">
             <select
               name="genre"
               id="genre"
@@ -245,7 +259,7 @@ const AddReviewForm = () => {
           </InputField>
         </div>
         <div className="space-y-1 text-sm">
-          <InputField label={"User Email"}>
+          <InputField label={"User Email"} customClassName="text-white">
             <input
               type="email"
               name="userEmail"
@@ -257,7 +271,7 @@ const AddReviewForm = () => {
           </InputField>
         </div>
         <div className="space-y-1 text-sm">
-          <InputField label={"User Name"}>
+          <InputField label={"User Name"} customClassName="text-white">
             <input
               type="text"
               name="userName"

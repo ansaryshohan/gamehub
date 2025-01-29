@@ -13,6 +13,7 @@ const GameDetailPage = () => {
   const { user } = useAuthContext();
   const { id } = useParams();
   const [gameData, setGameData] = useState({});
+  const [isGameInWishlist, setIsGameInWishlist] = useState(false);
   const [commentInput, setCommentInput] = useState({
     ratingInput: 0,
     reviewDetails: "",
@@ -22,12 +23,69 @@ const GameDetailPage = () => {
     reviewDetailsError: "",
   });
 
+  // review data finding and setting
   useEffect(() => {
-    fetch(`http://localhost:3000/game/${id}`)
+    fetch(`http://localhost:3000/review/${id}`)
       .then((res) => res.json())
       .then((data) => setGameData(data[0]))
       .catch((err) => console.log(err));
   }, [id]);
+
+
+
+  // wishlist data finding and setting
+  useEffect(() => {
+    if (!user?.email || !id) return;
+
+  fetch(`http://localhost:3000/wishlist/${user?.email}`)
+    .then((res) => {
+      // console.log("Response status:", res.status);
+      return res.json();
+    })
+      .then((data) => {
+        const wishlistArray = data?.data?.wishlist || [];
+        const findGameInWishlist = wishlistArray.includes(id);
+        // console.log(data,findGameInWishlist);
+        if (findGameInWishlist) {
+         return setIsGameInWishlist(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [user?.email, id]);
+
+  const handleWishList = async (gameId) => {
+    try {
+      const response = await fetch("http://localhost:3000/wishlist", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ gameId, userEmail: user?.email }),
+      });
+      const data = await response.json();
+      if (data?.insertData?.acknowledged) {
+        setIsGameInWishlist(true);
+        toast.success("game added in wishlist");
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+  const handleWishListDelete = async (gameId) => {
+    try {
+      const response = await fetch("http://localhost:3000/wishlist", {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ gameId, userEmail: user?.email }),
+      });
+      const data = await response.json();
+      // console.log(data);
+      if (data?.deleteData?.acknowledged) {
+        setIsGameInWishlist(false);
+        toast.error("game removed from wishlist");
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   const handleFormDataOnChange = (e) => {
     setCommentInputError({ ...commentInputError, commentInputError: "" });
@@ -86,6 +144,7 @@ const GameDetailPage = () => {
 
   return (
     <div>
+      {/* page heading */}
       <div
         style={{
           backgroundImage: `url(${bgImg})`,
@@ -97,27 +156,47 @@ const GameDetailPage = () => {
       >
         <SectionHeadline titleText={`${gameData?.gameName}`} />
       </div>
+      {/* game details section */}
       <div className="w-full bg-gray-950 py-16 text-white">
         <div className="relative w-10/12 mx-auto flex flex-col md:flex-row justify-start items-stretch gap-10">
-          <div>
-            <img src={gameData?.image} alt="" className="sticky top-10" />
+          <div className="w-2/5">
+            <img
+              src={gameData?.image}
+              alt=""
+              className="sticky top-10 w-full"
+            />
           </div>
           <div className="md:px-5 pb-5 flex-1">
             <div className=" flex justify-between items-center">
               <h3 className="text-xl md:text-3xl font-bold mb-5 capitalize">
                 {gameData?.gameName}
               </h3>
-              <p className="w-12 h-12 rounded-full border grid place-content-center">
-                {" "}
-                <FaHeart color="red" size={20} />{" "}
-              </p>
+              {/* wishlist icon  section*/}
+              {isGameInWishlist ? (
+                <button onClick={() => handleWishListDelete(id)}>
+                  <p className="w-12 h-12 rounded-full border grid place-content-center">
+                    {" "}
+                    <FaHeart color="red" size={20} />{" "}
+                  </p>
+                </button>
+              ) : (
+                <button onClick={() => handleWishList(id)}>
+                  <p className="w-12 h-12 rounded-full border grid place-content-center">
+                    {" "}
+                    <FaHeart color="gray" size={20} />{" "}
+                  </p>
+                </button>
+              )}
             </div>
             <p className="text-lg">{gameData?.review}</p>
             <div className="text-lg mt-3 flex gap-3 items-center font-bole">
               Rating: <Ratings starCount={gameData?.rating} />
             </div>
             <div className="text-lg mb-8 mt-3 flex gap-3 items-center font-bole">
-              Genre: {gameData?.genre}
+              Genre:{" "}
+              <span className="capitalize text-lg font-bold text-purple-400">
+                {gameData?.genre}
+              </span>
             </div>
             <div className="border rounded-2xl p-5">
               <p className="text-lg font-bold">Add your comment:</p>

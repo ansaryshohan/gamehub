@@ -6,7 +6,7 @@ import Title from "../components/shared/Title";
 const AllReviewPage = () => {
   const [allGames, setAllGames] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/all-games")
+    fetch("http://localhost:3000/reviews")
       .then((res) => res.json())
       .then((data) => setAllGames(data))
       .catch((err) => console.log(err));
