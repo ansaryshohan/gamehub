@@ -16,15 +16,33 @@ const MyReviewsPage = () => {
   const { updatingReviewId, setUpdatingReviewId } = useModalReviewContext();
 
   useEffect(() => {
-    fetch("https://game-review-backend.vercel.app/my-reviews", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ userEmail: user?.email }),
-    })
-      .then((res) => res.json())
-      .then((data) => setMyReviews(data))
-      .catch((err) => toast.error(err));
-  }, [user]);
+    if (!user?.email) return;
+
+    let isMounted = true;
+
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch(
+          "https://game-review-backend.vercel.app/my-reviews",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userEmail: user?.email }),
+          }
+        );
+        if (!res.ok) throw new Error("Failed to fetch reviews");
+        const data = await res.json();
+        if (isMounted) setMyReviews(data);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+    fetchReviews();
+    // cleanup====
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.email]);
 
   const handleReviewDelete = (reviewId) => {
     // sweet alert: first get the confirmation of delete
@@ -87,36 +105,45 @@ const MyReviewsPage = () => {
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
-        className="min-h-72 flex items-center justify-center"
+        className="min-h-52 flex items-center justify-center"
       >
         <SectionHeadline titleText={`My Reviews`} />
       </div>
       <div className="w-full md:w-11/12 mx-auto">
-        <div className="overflow-x-auto py-10">
-          <table className="table text-white mb-10">
-            {/* head */}
-            <thead className="text-slate-400/60 text-lg">
-              <tr>
-                <th>SI</th>
-                <th>Game Info</th>
-                <th>Rating</th>
-                <th>Review</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {myReviews?.map((singleReview, index) => (
-                <ReviewTableRow
-                  key={singleReview._id}
-                  indexNo={index}
-                  rowData={singleReview}
-                  handleReviewDelete={handleReviewDelete}
-                  handleUpdateModalData={handleUpdateModalData}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {myReviews?.length > 0 ? (
+          <div className="overflow-x-auto py-10">
+            <table className="table text-white mb-10">
+              {/* head */}
+              <thead className="text-slate-400/60 text-lg">
+                <tr>
+                  <th>SI</th>
+                  <th>Game Info</th>
+                  <th>Rating</th>
+                  <th>Review</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {myReviews?.map((singleReview, index) => (
+                  <ReviewTableRow
+                    key={singleReview._id}
+                    indexNo={index}
+                    rowData={singleReview}
+                    handleReviewDelete={handleReviewDelete}
+                    handleUpdateModalData={handleUpdateModalData}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="w-10/12 mx-auto h-full flex justify-center items-center py-16">
+            {" "}
+            <h3 className="text-2xl font-bold text-red-600 text-center">
+              No Review added by You
+            </h3>{" "}
+          </div>
+        )}
       </div>
     </div>
   );
