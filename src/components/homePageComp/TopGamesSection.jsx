@@ -3,14 +3,32 @@ import { Link } from "react-router-dom";
 import bgImage from "../../assets/benefits_background.jpg";
 import SectionHeadline from "../shared/SectionHeadline";
 import AllGames from "./AllGames";
+import { toast } from "react-toastify";
 
 const TopGamesSection = () => {
   const [topGames, setTopGames] = useState([]);
+
   useEffect(() => {
-    fetch("https://game-review-backend.vercel.app/top-games")
-      .then((res) => res.json())
-      .then((data) => setTopGames(data))
-      .catch((err) => console.log(err));
+    let isMounted = true; 
+
+    const fetchTopGames = async () => {
+      try {
+        const res = await fetch("https://game-review-backend.vercel.app/top-games");
+
+        if (!res.ok) throw new Error("Failed to fetch top games");
+
+        const data = await res.json();
+        if (isMounted) setTopGames(data);
+      } catch (error) {
+        if (isMounted) return toast.error(error.message);
+      }
+    };
+
+    fetchTopGames();
+    // Cleanup
+    return () => {
+      isMounted = false; 
+    };
   }, []);
 
   return (
