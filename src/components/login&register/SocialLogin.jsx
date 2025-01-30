@@ -1,14 +1,21 @@
 import { toast } from "react-toastify";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
   const{loginWithGoogle}=useAuthContext();
+  const navigate= useNavigate();
+  let location = useLocation();
+
+  let from = location.state?.from || "/";
 
   const handleGoogleSignIn = () => {
     loginWithGoogle()
       .then((result) => {    
         const user = result.user;
-        console.log(user)
+        if(user?.email){
+          navigate(from, { replace: true });
+        }  
       })
       .catch((error) => toast.error(error.code));
   };
