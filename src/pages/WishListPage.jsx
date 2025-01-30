@@ -9,10 +9,35 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const WishListPage = () => {
   const { user } = useAuthContext();
   const [wishList, setWishList] = useState([]);
+  
   useEffect(() => {
-    fetch(`https://game-review-backend.vercel.app/allWishlist/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setWishList(data?.data));
+    let isMounted = true;
+
+    const fetchWishlist = async () => {
+      if (!user?.email) return;
+
+      try {
+        const response = await fetch(
+          `https://game-review-backend.vercel.app/allWishlist/${user.email}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch wishlist");
+        }
+        const result = await response.json();
+
+        if (isMounted) {
+          setWishList(result?.data || []);
+        }
+      } catch (error) {
+        console.error("Error fetching wishlist:", error);
+      }
+    };
+
+    fetchWishlist();
+
+    return () => {
+      isMounted = false;
+    };
   }, [user?.email]);
 
   const handleWishListDelete = async (gameId) => {

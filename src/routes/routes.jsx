@@ -8,10 +8,11 @@ import GameDetailPage from "../pages/GameDetailPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import MyReviewsPage from "../pages/MyReviewsPage";
-import RegisterPage from "../pages/RegisterPage";
-import PrivateRoute from "./PrivateRoute";
-import WishListPage from "../pages/WishListPage";
 import ProfilePage from "../pages/ProfilePage";
+import RegisterPage from "../pages/RegisterPage";
+import WishListPage from "../pages/WishListPage";
+import PrivateRoute from "./PrivateRoute";
+import RestrictedRoute from "./RestrictedRoute";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/reviews/:id",
-        element: <GameDetailPage />,
+        element: (
+          <PrivateRoute>
+            <GameDetailPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-review",
@@ -57,11 +62,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <LoginPage />,
+        element: (
+          <RestrictedRoute>
+            {" "}
+            <LoginPage />
+          </RestrictedRoute>
+        ),
       },
       {
         path: "/register",
-        element: <RegisterPage />,
+        element: (
+          <RestrictedRoute>
+            {" "}
+            <RegisterPage />
+          </RestrictedRoute>
+        ),
       },
     ],
   },
