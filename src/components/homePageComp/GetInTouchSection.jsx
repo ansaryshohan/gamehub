@@ -9,7 +9,7 @@ const GetInTouchSection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+    // alert(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
     setName("");
     setEmail("");
     setMessage("");
